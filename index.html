@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AxisGames | Indie Game Development Studio</title>
+<meta name="description" content="AxisGames is an indie game studio crafting addictive mobile experiences. 10+ shipped titles, 5M+ downloads. Open for publishing partnerships.">
+<meta name="theme-color" content="#050507">
+<meta name="color-scheme" content="dark">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AxisGames">
+<meta property="og:title" content="AxisGames | Indie Game Development Studio">
+<meta property="og:description" content="Indie studio crafting addictive mobile experiences. 10+ shipped titles, 5M+ downloads. Open for publishing partnerships.">
+<meta property="og:image" content="game1_banner.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AxisGames | Indie Game Development Studio">
+<meta name="twitter:description" content="Indie studio crafting addictive mobile experiences. Open for publishing partnerships.">
+<meta name="twitter:image" content="game1_banner.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23f43f5e'/%3E%3Ctext x='32' y='44' font-size='34' font-family='Arial' font-weight='900' text-anchor='middle' fill='%23fff'%3EAG%3C/text%3E%3C/svg%3E">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "AxisGames",
+  "description": "Independent game development studio crafting addictive mobile experiences.",
+  "email": "axisgamedev@gmail.com",
+  "sameAs": [
+    "https://play.google.com/store/apps/developer?id=Calaman%D1%81i",
+    "https://gamesrock.itch.io/"
+  ]
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#050507;--bg2:#0f0f13;--bg3:#1a1a22;--accent:#f43f5e;--accent2:#ec4899;--accent3:#a855f7;--cyan:#06b6d4;--text:#fafafa;--text2:#a1a1aa;--text3:#71717a;--card:#0a0a0f;--border:#1e1e28}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+ul{margin:0;padding:0;list-style:none}
+img,video{display:block;max-width:100%}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.skip-link{position:fixed;top:-48px;left:16px;z-index:2000;background:var(--accent);color:#fff;padding:10px 18px;border-radius:8px;font-size:.8rem;font-weight:600;transition:top .2s}
+.skip-link:focus{top:16px}
+@media(prefers-reduced-motion:reduce){
+*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:0 5%;height:72px;display:flex;justify-content:space-between;align-items:center;backdrop-filter:blur(24px) saturate(180%);background:rgba(5,5,7,.6);border-bottom:1px solid rgba(255,255,255,.04);transition:background .3s}
+.logo{font-size:1.4rem;font-weight:900;letter-spacing:-.5px;display:flex;align-items:center;gap:10px}
+.logo-mark{width:36px;height:36px;background:linear-gradient(135deg,var(--accent),var(--accent3));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:900;color:#fff}
+.nav-links{display:flex;gap:36px}
+.nav-links a{color:var(--text2);font-size:.8125rem;font-weight:500;transition:color .3s;letter-spacing:.3px}
+.nav-links a:hover{color:var(--text)}
+.nav-cta{background:var(--accent);color:#fff;padding:10px 24px;border-radius:10px;font-size:.8125rem;font-weight:600;transition:all .3s}
+.nav-cta:hover{background:#e11d48;transform:translateY(-1px)}
+.nav-links a.active{color:var(--text)}
+.nav-burger{display:none;background:none;border:none;cursor:pointer;padding:8px;z-index:1100}
+.nav-burger span{display:block;width:22px;height:2px;background:var(--text);margin:5px 0;border-radius:2px;transition:all .3s}
+.nav-burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-burger.open span:nth-child(2){opacity:0}
+.nav-burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mobile-menu{position:fixed;inset:0;background:rgba(5,5,7,.98);z-index:1050;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:32px;opacity:0;pointer-events:none;transition:opacity .3s}
+.mobile-menu.open{opacity:1;pointer-events:auto}
+.mobile-menu a{font-size:1.6rem;font-weight:800;color:var(--text);transition:color .3s}
+.mobile-menu a:hover{color:var(--accent)}
+.mobile-menu .m-cta{background:var(--accent);color:#fff;padding:14px 40px;border-radius:12px;font-size:1rem;font-weight:700}
+
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:120px 5% 80px;position:relative;overflow:hidden}
+.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.15;z-index:0}
+.hero-gradient{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 30%,rgba(244,63,94,.06) 0%,transparent 60%),linear-gradient(to bottom,transparent 60%,var(--bg) 100%);z-index:1}
+.hero-content{position:relative;z-index:2;max-width:800px}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(244,63,94,.08);border:1px solid rgba(244,63,94,.2);border-radius:100px;padding:8px 20px;font-size:.75rem;color:var(--accent);font-weight:600;margin-bottom:32px;letter-spacing:.5px}
+.hero-badge .pulse{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
+.hero h1{font-size:clamp(2.8rem,7vw,5.5rem);font-weight:900;letter-spacing:-3px;line-height:1.05;margin-bottom:24px}
+.hero h1 .gradient{background:linear-gradient(135deg,var(--accent) 0%,var(--accent2) 50%,var(--accent3) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:1.1rem;color:var(--text2);max-width:540px;line-height:1.7;margin:0 auto 48px}
+.hero-actions{display:flex;gap:16px;justify-content:center;margin-bottom:64px}
+.btn{padding:14px 32px;border-radius:12px;font-size:.9rem;font-weight:600;cursor:pointer;border:none;transition:all .3s;display:inline-flex;align-items:center;gap:8px}
+.btn-primary{background:var(--accent);color:#fff}.btn-primary:hover{background:#e11d48;transform:translateY(-2px);box-shadow:0 8px 30px rgba(244,63,94,.3)}
+.btn-ghost{background:transparent;color:var(--text);border:1px solid var(--border)}.btn-ghost:hover{border-color:var(--text3);transform:translateY(-2px)}
+.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border-radius:16px;overflow:hidden;max-width:640px;width:100%}
+.hero-stat{background:var(--bg2);padding:28px 20px;text-align:center}
+.hero-stat .num{font-size:2rem;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--accent3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
+.hero-stat .label{font-size:.7rem;color:var(--text3);text-transform:uppercase;letter-spacing:1.5px;margin-top:8px}
+
+.section{padding:120px 5%}
+.section-header{text-align:center;margin-bottom:72px}
+.section-tag{display:inline-block;background:rgba(244,63,94,.06);border:1px solid rgba(244,63,94,.15);border-radius:100px;padding:6px 18px;font-size:.7rem;color:var(--accent);font-weight:600;margin-bottom:20px;text-transform:uppercase;letter-spacing:1.5px}
+.section-header h2{font-size:clamp(2rem,4vw,3.2rem);font-weight:800;letter-spacing:-2px;margin-bottom:16px;line-height:1.1}
+.section-header p{color:var(--text2);font-size:1rem;max-width:500px;margin:0 auto;line-height:1.7}
+
+.featured-game{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1.2fr 1fr;gap:48px;align-items:center;margin-bottom:80px}
+.featured-game:nth-child(even){direction:rtl}.featured-game:nth-child(even)>*{direction:ltr}
+.featured-video{border-radius:20px;overflow:hidden;border:1px solid var(--border);position:relative;aspect-ratio:16/9;background:#000}
+.featured-video video{width:100%;height:100%;object-fit:cover}
+.featured-info .genre{font-size:.7rem;color:var(--accent);font-weight:600;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:12px}
+.featured-info h3{font-size:2rem;font-weight:800;letter-spacing:-1px;margin-bottom:12px}
+.featured-info p{color:var(--text2);font-size:.95rem;line-height:1.7;margin-bottom:24px}
+.featured-meta{display:flex;gap:24px;margin-bottom:24px}
+.featured-meta-item{display:flex;align-items:center;gap:6px;font-size:.8rem;color:var(--text3)}
+.featured-meta-item svg{width:16px;height:16px;opacity:.5}
+.store-links{display:flex;gap:12px}
+.store-link{padding:10px 20px;border-radius:10px;font-size:.8rem;font-weight:600;display:flex;align-items:center;gap:8px;transition:all .3s}
+.store-link.gplay{background:#fff;color:#000}.store-link.gplay:hover{background:#e0e0e0}
+.store-link.itch{background:#fa5c5c;color:#fff}.store-link.itch:hover{background:#e04848}
+
+.games-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1200px;margin:0 auto}
+.game-card{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:all .4s cubic-bezier(.4,0,.2,1)}
+.game-card:hover{transform:translateY(-4px);border-color:rgba(244,63,94,.3);box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.reveal-item{opacity:0;transform:translateY(30px);transition:opacity .6s ease,transform .6s ease}
+.reveal-item.revealed{opacity:1;transform:translateY(0)}
+.game-thumb{position:relative;aspect-ratio:16/9;overflow:hidden;background:#000}
+.game-thumb img,.game-thumb video{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.game-card:hover .game-thumb img,.game-card:hover .game-thumb video{transform:scale(1.05)}
+.game-body{padding:20px}
+.game-genre{font-size:.65rem;color:var(--accent);font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.game-body h3{font-size:1.1rem;font-weight:700;margin-bottom:8px}
+.game-body p{font-size:.8rem;color:var(--text2);line-height:1.6;margin-bottom:16px}
+.game-footer{display:flex;justify-content:space-between;align-items:center;padding-top:12px;border-top:1px solid var(--border)}
+.platforms{display:flex;gap:6px}
+.platform{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:3px 8px;font-size:.65rem;color:var(--text3)}
+.game-genre .platform{margin-left:6px}
+.game-play{font-size:.72rem;font-weight:700;color:var(--accent);display:inline-flex;align-items:center;gap:4px;transition:color .3s}
+.game-play:hover{color:#fff}
+.game-play::after{content:'→';transition:transform .3s}
+.game-play:hover::after{transform:translateX(3px)}
+.game-thumb video.lazy-loaded{object-fit:cover}
+video[data-lazy-video].lazy-ready{background:#000}
+
+.upcoming-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1200px;margin:0 auto}
+.upcoming-card{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;position:relative;transition:all .4s}
+.upcoming-card:hover{transform:translateY(-4px);border-color:rgba(168,85,247,.3)}
+.upcoming-badge{position:absolute;top:16px;right:16px;background:var(--accent3);color:#fff;font-size:.6rem;font-weight:700;padding:4px 12px;border-radius:6px;z-index:2;text-transform:uppercase;letter-spacing:1px}
+.upcoming-thumb{aspect-ratio:16/9;overflow:hidden;background:#000}
+.upcoming-thumb video{width:100%;height:100%;object-fit:contain}
+.upcoming-body{padding:20px}
+.upcoming-body h3{font-size:1.05rem;font-weight:700;margin-bottom:8px}
+.upcoming-body p{font-size:.8rem;color:var(--text2);line-height:1.6}
+
+.about-section{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;max-width:1200px;margin:0 auto;align-items:center}
+.about-text h2{font-size:2.5rem;font-weight:800;letter-spacing:-2px;margin-bottom:24px;line-height:1.1}
+.about-text p{color:var(--text2);font-size:.95rem;line-height:1.8;margin-bottom:16px}
+.about-visual{position:relative}
+.about-card{background:var(--bg);border:1px solid var(--border);border-radius:16px;padding:32px;position:relative}
+.about-card::before{content:'';position:absolute;inset:-1px;border-radius:17px;background:linear-gradient(135deg,var(--accent),var(--accent3));opacity:.1;z-index:-1}
+.about-stats{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.about-stat{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:20px;text-align:center}
+.about-stat .num{font-size:1.8rem;font-weight:800;color:var(--accent)}
+.about-stat .label{font-size:.7rem;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-top:4px}
+
+.partner-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;max-width:1200px;margin:0 auto}
+.partner-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px 24px;text-align:left;transition:all .3s}
+.partner-card:hover{transform:translateY(-4px);border-color:rgba(244,63,94,.3)}
+.partner-icon{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,rgba(244,63,94,.15),rgba(168,85,247,.15));border:1px solid rgba(244,63,94,.2);display:flex;align-items:center;justify-content:center;margin-bottom:18px}
+.partner-icon svg{width:22px;height:22px;color:var(--accent)}
+.partner-card h3{font-size:1rem;font-weight:700;margin-bottom:8px}
+.partner-card p{font-size:.82rem;color:var(--text2);line-height:1.65}
+
+.back-to-top{position:fixed;bottom:24px;right:24px;z-index:900;width:44px;height:44px;border-radius:12px;background:var(--bg3);border:1px solid var(--border);color:var(--text);display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;pointer-events:none;transition:all .3s}
+.back-to-top.visible{opacity:1;pointer-events:auto}
+.back-to-top:hover{background:var(--accent);border-color:var(--accent)}
+.back-to-top svg{width:20px;height:20px}
+
+.sticky-cta{position:fixed;bottom:0;left:0;right:0;z-index:950;background:rgba(5,5,7,.95);backdrop-filter:blur(16px);border-top:1px solid var(--border);padding:12px 5%;display:none;gap:12px;align-items:center;justify-content:center}
+.sticky-cta a{flex:1;max-width:340px;text-align:center;padding:14px;border-radius:12px;font-size:.9rem;font-weight:700}
+.sticky-cta a.mail{background:var(--accent);color:#fff}
+.sticky-cta a.stores{background:var(--bg2);border:1px solid var(--border);color:var(--text)}
+
+.contact-section{text-align:center;position:relative;overflow:hidden}
+.contact-section::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(244,63,94,.04) 0%,transparent 70%);pointer-events:none}
+.contact-section h2{font-size:clamp(2rem,5vw,3.5rem);font-weight:900;letter-spacing:-2px;margin-bottom:16px}
+.contact-section h2 .gradient{background:linear-gradient(135deg,var(--accent),var(--accent3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.contact-section>p{color:var(--text2);font-size:1.05rem;max-width:480px;margin:0 auto 48px;line-height:1.7}
+.contact-cards{display:flex;gap:20px;justify-content:center;max-width:800px;margin:0 auto}
+.contact-card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:32px;flex:1;transition:all .3s}
+.contact-card:hover{border-color:var(--accent);transform:translateY(-4px)}
+.contact-card h3{font-size:1rem;font-weight:700;margin-bottom:8px}
+.contact-card p{font-size:.85rem;color:var(--text2);line-height:1.6}
+.contact-card a{color:var(--accent);font-weight:600}
+
+footer{padding:60px 5% 32px;border-top:1px solid var(--border)}
+.footer-content{display:flex;justify-content:space-between;align-items:flex-start;max-width:1200px;margin:0 auto;flex-wrap:wrap;gap:40px}
+.footer-brand{max-width:300px}
+.footer-brand .logo{margin-bottom:12px}
+.footer-brand p{color:var(--text3);font-size:.85rem;line-height:1.6}
+.footer-col h4{font-size:.7rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--text3);margin-bottom:16px}
+.footer-col a{display:block;color:var(--text2);font-size:.85rem;margin-bottom:10px;transition:color .3s}
+.footer-col a:hover{color:var(--accent)}
+.footer-bottom{text-align:center;padding-top:24px;margin-top:40px;border-top:1px solid var(--border);color:var(--text3);font-size:.75rem;max-width:1200px;margin-left:auto;margin-right:auto}
+
+.hero-scroll{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--text3);font-size:.7rem;letter-spacing:1px;text-transform:uppercase;animation:bob 2s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
+.hero-scroll svg{width:20px;height:20px;opacity:.4}
+
+@media(max-width:1024px){
+.featured-game{grid-template-columns:1fr;gap:32px}
+.featured-game:nth-child(even){direction:ltr}
+.games-grid,.upcoming-grid,.partner-grid{grid-template-columns:repeat(2,1fr)}
+.about-grid{grid-template-columns:1fr;gap:48px}
+}
+@media(max-width:768px){
+.nav-links{display:none}
+.nav-burger{display:flex}
+.games-grid,.upcoming-grid,.partner-grid{grid-template-columns:1fr}
+.contact-cards{flex-direction:column;align-items:stretch}
+.hero-stats{grid-template-columns:repeat(2,1fr)}
+.hero h1{letter-spacing:-1.5px}
+.footer-content{flex-direction:column}
+.sticky-cta{display:flex}
+body{padding-bottom:72px}
+}
+@media(max-width:480px){
+.hero-stats{grid-template-columns:1fr 1fr}
+.hero-actions{flex-direction:column;align-items:center}
+}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--bg3);border-radius:3px}
+</style>
+</head>
+<body>
+
+<a href="#home" class="skip-link">Skip to content</a>
+
+<nav aria-label="Main navigation">
+  <a href="#home" class="logo" aria-label="AxisGames home"><div class="logo-mark">AG</div>AxisGames</a>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#games">Games</a></li>
+    <li><a href="#upcoming">Upcoming</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Partner With Us</a>
+  <button class="nav-burger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu"><span></span><span></span><span></span></button>
+</nav>
+
+<div id="mobileMenu" class="mobile-menu" hidden>
+  <a href="#home">Home</a>
+  <a href="#games">Games</a>
+  <a href="#upcoming">Upcoming</a>
+  <a href="#about">About</a>
+  <a href="#contact">Contact</a>
+  <a href="#contact" class="m-cta">Partner With Us</a>
+</div>
+
+<section id="home" class="hero">
+  <video class="hero-video" autoplay muted loop playsinline><source src="Videos/Circus Cannon Smash.mp4" type="video/mp4"></video>
+  <div class="hero-gradient"></div>
+  <div class="hero-content">
+    <div class="hero-badge"><span class="pulse"></span>Available for Publishing Partnerships</div>
+    <h1>We Craft Games<br>That <span class="gradient">Players Love</span></h1>
+    <p class="hero-sub">AxisGames is an indie studio building addictive mobile experiences with bold visuals, satisfying physics, and retention loops that keep players coming back.</p>
+    <div class="hero-actions">
+      <a href="#games" class="btn btn-primary">View Our Portfolio</a>
+      <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="num">10+</div><div class="label">Games Shipped</div></div>
+      <div class="hero-stat"><div class="num">5M+</div><div class="label">Downloads</div></div>
+      <div class="hero-stat"><div class="num">4.5</div><div class="label">Avg Rating</div></div>
+      <div class="hero-stat"><div class="num">3</div><div class="label">In Development</div></div>
+    </div>
+  </div>
+  <div class="hero-scroll">Scroll<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg></span>
+  </div>
+</section>
+
+<section id="partner" class="section">
+  <div class="section-header">
+    <div class="section-tag">Why AxisGames</div>
+    <h2>Built for Sustainable Growth</h2>
+    <p>We design every title around the metrics that matter to publishers.</p>
+  </div>
+  <div class="partner-grid">
+    <div class="partner-card">
+      <div class="partner-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+      <h3>Retention Engineering</h3>
+      <p>Session-based design, satisfying loops, and difficulty curves tuned to maximize day-one and long-term retention.</p>
+    </div>
+    <div class="partner-card">
+      <div class="partner-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v12M15 9.5c0-1.38-1.34-2.5-3-2.5s-3 1.12-3 2.5c0 3 6 2.5 6 5 0 1.38-1.34 2.5-3 2.5s-3-1.12-3-2.5"/></svg></div>
+      <h3>Monetization Built-in</h3>
+      <p>Balanced ads + IAP hybrids designed from day one, with placement tuned to avoid hurting retention.</p>
+    </div>
+    <div class="partner-card">
+      <div class="partner-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+      <h3>Live Ops Ready</h3>
+      <p>Content pipelines and event systems in place so titles can ship updates, events, and seasonal content on demand.</p>
+    </div>
+    <div class="partner-card">
+      <div class="partner-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+      <h3>Fast Iteration</h3>
+      <p>A lean pipeline that ships complete, polished builds quickly — so you can test, iterate, and scale with confidence.</p>
+    </div>
+  </div>
+</section>
+
+<section id="featured" class="section">
+  <div class="section-header">
+    <div class="section-tag">Featured Title</div>
+    <h2>Our Latest Release</h2>
+    <p>A hands-on look at our most recent shipped title with gameplay and key features.</p>
+  </div>
+
+  <div class="featured-game">
+    <div class="featured-video"><video autoplay muted loop playsinline><source src="Videos/Aliens Find You.mp4" type="video/mp4"></video></div>
+    <div class="featured-info">
+      <div class="genre">Runner / Arcade</div>
+      <h3>Aliens Find You</h3>
+      <p>Outrun alien invaders in a high-speed desert chase. Collect survivors, dodge obstacles, and survive waves of extraterrestrial pursuers in this adrenaline-pumping endless runner.</p>
+      <div class="featured-meta">
+        <div class="featured-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>4.7 Rating</div>
+        <div class="featured-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>500K+ Players</div>
+        <div class="featured-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>Android</div>
+      </div>
+      <div class="store-links">
+        <a href="https://play.google.com/store/apps/developer?id=Calaman%D1%81i" target="_blank" class="store-link gplay">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.61 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/></svg>
+          Google Play
+        </a>
+        <a href="https://gamesrock.itch.io/" target="_blank" class="store-link itch">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3.13,14.21C3.13,17.14 5.84,19.52 9.18,19.52C12.51,19.52 15.22,17.14 15.22,14.21V8.06H3.13V14.21M15.22,6.67C15.22,3.74 12.51,1.36 9.18,1.36C5.84,1.36 3.13,3.74 3.13,6.67H15.22M20.87,14.21C20.87,17.14 18.16,19.52 14.82,19.52H15.22C18.56,19.52 21.27,17.14 21.27,14.21V8.06H20.87M20.87,6.67C20.87,3.74 18.16,1.36 14.82,1.36H15.22C18.56,1.36 21.27,3.74 21.27,6.67H20.87Z"/></svg>
+          Itch.io
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="featured-game">
+    <div class="featured-video"><video autoplay muted loop playsinline><source src="Videos/weaponCrasher.mp4" type="video/mp4"></video></div>
+    <div class="featured-info">
+      <div class="genre">Action / Arcade</div>
+      <h3>Weapon Crasher</h3>
+      <p>Crash through waves of enemies with explosive weapons. Fast-paced 2D action with roguelike weapon upgrades, epic boss fights, and satisfying destruction mechanics.</p>
+      <div class="featured-meta">
+        <div class="featured-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>4.5 Rating</div>
+        <div class="featured-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>200K+ Players</div>
+        <div class="featured-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>Android</div>
+      </div>
+      <div class="store-links">
+        <a href="https://play.google.com/store/apps/developer?id=Calaman%D1%81i" target="_blank" class="store-link gplay">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.61 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/></svg>
+          Google Play
+        </a>
+        <a href="https://gamesrock.itch.io/" target="_blank" class="store-link itch">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3.13,14.21C3.13,17.14 5.84,19.52 9.18,19.52C12.51,19.52 15.22,17.14 15.22,14.21V8.06H3.13V14.21M15.22,6.67C15.22,3.74 12.51,1.36 9.18,1.36C5.84,1.36 3.13,3.74 3.13,6.67H15.22M20.87,14.21C20.87,17.14 18.16,19.52 14.82,19.52H15.22C18.56,19.52 21.27,17.14 21.27,14.21V8.06H20.87M20.87,6.67C20.87,3.74 18.16,1.36 14.82,1.36H15.22C18.56,1.36 21.27,3.74 21.27,6.67H20.87Z"/></svg>
+          Itch.io
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="games" class="section" style="background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  <div class="section-header">
+    <div class="section-tag">Portfolio</div>
+    <h2>All Released Titles</h2>
+    <p>A complete catalog of games we've shipped across multiple genres and platforms.</p>
+  </div>
+  <div class="games-grid" id="gamesGrid"></div>
+</section>
+
+<section id="upcoming" class="section">
+  <div class="section-header">
+    <div class="section-tag">In Development</div>
+    <h2>Upcoming Titles</h2>
+    <p>Currently building our next wave of innovative mobile experiences.</p>
+  </div>
+  <div class="upcoming-grid">
+    <div class="upcoming-card">
+      <div class="upcoming-badge">Coming Soon</div>
+      <div class="upcoming-thumb"><video muted playsinline preload="none" data-lazy-video><source src="Upcomming/PressureCells.mp4" type="video/mp4"></video></div>
+      <div class="upcoming-body"><h3>Pressure Cells</h3><p>Strategic puzzle game with mind-bending logic challenges. Manipulate pressure cells to guide fluids through intricate pipe networks.</p></div>
+    </div>
+    <div class="upcoming-card">
+      <div class="upcoming-badge">Coming Soon</div>
+      <div class="upcoming-thumb"><video muted playsinline preload="none" data-lazy-video><source src="Upcomming/MonsterSnackSort.mp4" type="video/mp4"></video></div>
+      <div class="upcoming-body"><h3>Monster Snack Sort</h3><p>Frantic time-management with adorable creatures. Sort colorful snacks for hungry monsters across increasingly chaotic levels.</p></div>
+    </div>
+    <div class="upcoming-card">
+      <div class="upcoming-badge">Coming Soon</div>
+      <div class="upcoming-thumb"><video muted playsinline preload="none" data-lazy-video><source src="Upcomming/CapybaraRope.mp4" type="video/mp4"></video></div>
+      <div class="upcoming-body"><h3>Capybara Rope</h3><p>Help capybaras swing across rivers using rope physics. Chill vibes, satisfying swings, and beautiful natural environments.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="about" class="section about-section">
+  <div class="about-grid">
+    <div class="about-text">
+      <div class="section-tag">About Us</div>
+      <h2>Building Games Since Day One</h2>
+      <p>AxisGames is an independent game development studio focused on crafting mobile experiences that combine addictive gameplay loops with polished visuals and satisfying mechanics.</p>
+      <p>We ship games across multiple genres - from physics-based destruction to post-apocalyptic racing, stealth horror to casual puzzles. Each title is designed with player retention and monetization in mind.</p>
+      <p>Currently seeking publishing partners for our portfolio of released and upcoming titles.</p>
+    </div>
+    <div class="about-visual">
+      <div class="about-card">
+        <div class="about-stats">
+          <div class="about-stat"><div class="num">10+</div><div class="label">Games Shipped</div></div>
+          <div class="about-stat"><div class="num">5M+</div><div class="label">Total Downloads</div></div>
+          <div class="about-stat"><div class="num">9</div><div class="label">Genres Covered</div></div>
+          <div class="about-stat"><div class="num">24/7</div><div class="label">Dev Cycle</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="section contact-section">
+  <div class="section-header">
+    <div class="section-tag">Get in Touch</div>
+    <h2>Let's Build Something <span class="gradient">Amazing</span></h2>
+    <p>Ready to bring these titles to your platform? We're actively seeking publishing partnerships for current and upcoming releases.</p>
+  </div>
+  <div class="contact-cards">
+    <div class="contact-card">
+      <h3>Publishing Inquiry</h3>
+      <p>Interested in publishing our games? Let's discuss terms and partnership opportunities.</p>
+      <a href="mailto:axisgamedev@gmail.com?subject=Publishing%20Inquiry%20-%20AxisGames">axisgamedev@gmail.com</a>
+    </div>
+    <div class="contact-card">
+      <h3>General Contact</h3>
+      <p>Questions about our studio, team, or upcoming projects? Reach out anytime.</p>
+      <a href="mailto:axisgamedev@gmail.com?subject=Hello%20AxisGames">axisgamedev@gmail.com</a>
+    </div>
+    <div class="contact-card">
+      <h3>Play Our Games</h3>
+      <p>Try our games on Google Play Store and Itch.io. See what we build.</p>
+      <a href="https://play.google.com/store/apps/developer?id=Calaman%D1%81i" target="_blank">Google Play Store</a>
+    </div>
+  </div>
+</section>
+
+<button class="back-to-top" aria-label="Back to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 15l-6-6-6 6"/></svg></button>
+
+<div class="sticky-cta">
+  <a href="mailto:axisgamedev@gmail.com?subject=Publishing Inquiry - AxisGames" class="mail">Email Us</a>
+  <a href="https://play.google.com/store/apps/developer?id=Calaman%D1%81i" target="_blank" class="stores">View on Google Play</a>
+</div>
+
+<footer>
+  <div class="footer-content">
+    <div class="footer-brand">
+      <div class="logo"><div class="logo-mark">AG</div>AxisGames</div>
+      <p>Independent game studio crafting addictive mobile experiences. Based in the digital frontier, building for the world.</p>
+    </div>
+    <div class="footer-col"><h4>Games</h4><a href="#games">Released Titles</a><a href="#upcoming">Upcoming</a><a href="#featured">Featured</a></div>
+    <div class="footer-col"><h4>Studio</h4><a href="#about">About Us</a><a href="#">Careers</a><a href="#">Press Kit</a></div>
+    <div class="footer-col"><h4>Connect</h4><a href="https://play.google.com/store/apps/developer?id=Calaman%D1%81i" target="_blank">Google Play</a><a href="https://gamesrock.itch.io/" target="_blank">Itch.io</a><a href="mailto:axisgamedev@gmail.com">Email Us</a></div>
+  </div>
+  <div class="footer-bottom">&copy; <span id="year"></span> AxisGames Studio. All rights reserved.</div>
+</footer>
+
+<script>
+// Mobile menu
+const burger = document.querySelector('.nav-burger');
+const mobileMenu = document.getElementById('mobileMenu');
+burger.addEventListener('click', () => {
+  const open = burger.classList.toggle('open');
+  burger.setAttribute('aria-expanded', open);
+  mobileMenu.hidden = !open;
+  mobileMenu.classList.toggle('open', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  burger.classList.remove('open');
+  burger.setAttribute('aria-expanded', 'false');
+  mobileMenu.classList.remove('open');
+  mobileMenu.hidden = true;
+  document.body.style.overflow = '';
+}));
+
+// Games grid
+const GAMES = [
+  { title:'Circus Cannon Smash', genre:'Physics / Casual', year:'2024', desc:'Aim, shoot, and smash through carnival targets with satisfying physics-based destruction.', media:'video', src:'Videos/Circus Cannon Smash.mp4', platforms:['Android'] },
+  { title:'Hello Angry Neighbor', genre:'Horror / Puzzle', year:'2024', desc:'Sneak into your creepy neighbor\'s house and uncover dark secrets before he catches you.', media:'image', src:'Images/HelloAngryNeighbor/yKF7_2.png', platforms:['Android'] },
+  { title:'NukeBike', genre:'Action / Racing', year:'2023', desc:'Post-apocalyptic bike combat through wastelands. Smash enemies and dominate the roads.', media:'image', src:'Images/NukeBike/71VvKr.png', platforms:['Android'] },
+  { title:'Happy Farmer', genre:'Simulation / Casual', year:'2023', desc:'Grow crops, raise animals, and build your dream farm with satisfying harvest mechanics.', media:'video', src:'Videos/HappyFarmer.mp4', platforms:['Android'] },
+  { title:'Trash Clash', genre:'Racing / Combat', year:'2022', desc:'Battle rivals in a junkyard arena. Upgrade scrap vehicles and trash the competition.', media:'video', src:'Videos/TrashClash.mp4', platforms:['Android'] },
+  { title:'Pop It Challenge', genre:'Puzzle / Casual', year:'2022', desc:'Satisfying bubble-popping puzzles. Match colors and trigger chain reactions.', media:'video', src:'Videos/PopIt Challenge.mp4', platforms:['Android'] },
+  { title:'Match Challenge', genre:'Puzzle / Match-3', year:'2021', desc:'Strategic match-3 with a twist. Plan moves, unlock power-ups, beat puzzle stages.', media:'video', src:'Videos/Match Challenge.mp4', platforms:['Android'] }
+];
+
+const STORE_URL = 'https://play.google.com/store/apps/developer?id=Calaman%D1%81i';
+
+const grid = document.getElementById('gamesGrid');
+grid.innerHTML = GAMES.map(g => {
+  const thumb = g.media === 'video'
+    ? `<video muted playsinline preload="none" data-lazy-video><source src="${g.src}" type="video/mp4"></video>`
+    : `<img src="${g.src}" alt="${g.title}" loading="lazy">`;
+  return `
+  <div class="game-card">
+    <div class="game-thumb">${thumb}</div>
+    <div class="game-body">
+      <div class="game-genre">${g.genre} <span class="platform">${g.year}</span></div>
+      <h3>${g.title}</h3>
+      <p>${g.desc}</p>
+      <div class="game-footer">
+        <div class="platforms">${g.platforms.map(p=>'<span class="platform">'+p+'</span>').join('')}</div>
+        <a href="${STORE_URL}" target="_blank" rel="noopener" class="game-play" aria-label="View ${g.title} on Google Play">View Game</a>
+      </div>
+    </div>
+  </div>`;
+}).join('');
+
+// Scroll spy
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+const observerOpts = { threshold: 0, rootMargin: '-20% 0px -60% 0px' };
+const spy = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id));
+    }
+  });
+}, observerOpts);
+sections.forEach(s => spy.observe(s));
+
+// Reveal elements on scroll
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('revealed');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.game-card, .upcoming-card, .featured-game, .contact-card, .about-card, .partner-card').forEach(el => {
+  el.classList.add('reveal-item');
+  revealObserver.observe(el);
+});
+
+// Lazy video: only play when in viewport
+const videoObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    const v = e.target;
+    if (e.isIntersecting) { v.play().catch(()=>{}); }
+    else { v.pause(); }
+  });
+}, { threshold: 0.2 });
+document.querySelectorAll('video[data-lazy-video]').forEach(v => {
+  // preload metadata so first frame shows
+  v.preload = 'metadata';
+  v.loop = true;
+  videoObserver.observe(v);
+});
+
+// Footer year
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// Back to top
+const btt = document.querySelector('.back-to-top');
+window.addEventListener('scroll', () => {
+  btt.classList.toggle('visible', window.scrollY > 600);
+});
+btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+// Nav background
+window.addEventListener('scroll', () => {
+  document.querySelector('nav').style.background = window.scrollY > 100 ? 'rgba(5,5,7,.85)' : 'rgba(5,5,7,.6)';
+});
+</script>
+</body>
+</html>
