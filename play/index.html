@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Team prototypes</title>
+<style>
+:root{--bg:#f6ecd8;--card:#fffaf0;--ink:#3b2416;--acc:#e9803a;--mut:#8a6f57}
+@media (prefers-color-scheme:dark){:root{--bg:#231a14;--card:#33261d;--ink:#f6e7d0;--acc:#f0954f;--mut:#b99f86}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.4 system-ui,Segoe UI,Arial,sans-serif;min-height:100vh}
+main{max-width:720px;margin:0 auto;padding:24px 16px 64px}
+h1{font-size:26px;margin:8px 0 4px}p.sub{color:var(--mut);margin:0 0 20px}
+.card{background:var(--card);border:2px solid var(--ink);border-radius:18px;padding:16px;margin:12px 0;box-shadow:0 4px 0 rgba(0,0,0,.15)}
+input[type=password]{width:100%;font:inherit;padding:12px;border-radius:12px;border:2px solid var(--ink);background:var(--bg);color:var(--ink)}
+button{font:inherit;font-weight:700;padding:12px 18px;border-radius:14px;border:2px solid var(--ink);background:var(--acc);color:#fff;cursor:pointer;min-height:44px}
+button.ghost{background:transparent;color:var(--ink)}button:disabled{opacity:.5}
+.row{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.name{font-weight:800;font-size:19px}.meta{color:var(--mut);font-size:14px}.err{color:#c0392b;min-height:1.4em;margin:8px 0 0}
+label.chk{display:flex;gap:8px;align-items:center;margin:10px 0;color:var(--mut);font-size:14px}.hidden{display:none}
+</style></head><body><main>
+<h1>Team prototypes</h1><p class="sub">Private playable builds. Files on this site are encrypted; your password unlocks them on this device only.</p>
+<section id="gate" class="card">
+  <form id="f"><input type="password" id="pw" placeholder="Team password" autocomplete="current-password" autofocus>
+  <label class="chk"><input type="checkbox" id="rem"> Remember on this device</label>
+  <button id="go" type="submit">Unlock</button><div class="err" id="err"></div></form>
+</section>
+<section id="list" class="hidden"><div class="row"><span class="meta" id="upd"></span><button class="ghost" id="lock">Lock</button></div><div id="cards"></div></section>
+</main>
+<script src="pfcrypto.js"></script>
+<script>
+(function () {
+  var C = window.PFCrypto, $ = function (id) { return document.getElementById(id); }, BASE = new URL('./', location.href).href, key = null, catalog = null;
+  var MIME = { html: 'text/html', js: 'text/javascript', mjs: 'text/javascript', css: 'text/css', json: 'application/json', png: 'image/png', jpg: 'image/jpeg', jpeg: 'image/jpeg', gif: 'image/gif', webp: 'image/webp', svg: 'image/svg+xml', mp3: 'audio/mpeg', ogg: 'audio/ogg', wav: 'audio/wav', m4a: 'audio/mp4', woff: 'font/woff', woff2: 'font/woff2', ttf: 'font/ttf', wasm: 'application/wasm', txt: 'text/plain', ico: 'image/x-icon' };
+  function get(u) { return fetch(u + (u.indexOf('?') < 0 ? '?' : '&') + 't=' + Date.now(), { cache: 'no-store' }).then(function (r) { if (!r.ok) throw new Error(u + ' ' + r.status); return r.arrayBuffer(); }); }
+  async function unlock(k) {
+    var buf; try { buf = await get('catalog.bin'); } catch (e) { throw new Error('Nothing published yet.'); }
+    try { catalog = JSON.parse(new TextDecoder().decode(await C.decrypt(k, buf))); } catch (e) { throw new Error('Wrong password.'); }
+    key = k; show();
+  }
+  function ago(iso) { var s = (Date.now() - new Date(iso)) / 1000; return s < 90 ? 'just now' : s < 5400 ? Math.round(s / 60) + ' min ago' : s < 129600 ? Math.round(s / 3600) + ' h ago' : Math.round(s / 86400) + ' days ago'; }
+  function show() {
+    $('gate').classList.add('hidden'); $('list').classList.remove('hidden'); $('upd').textContent = catalog.prototypes.length + ' prototype' + (catalog.prototypes.length === 1 ? '' : 's') + ' - updated ' + ago(catalog.updated);
+    var box = $('cards'); box.innerHTML = '';
+    catalog.prototypes.slice().sort(function (a, b) { return b.updated.localeCompare(a.updated); }).forEach(function (p) {
+      var d = document.createElement('div'); d.className = 'card'; d.id = 'p-' + p.name;
+      d.innerHTML = '<div class="row"><div><div class="name"></div><div class="meta"></div></div><button>Play</button></div><div class="err"></div>';
+      d.querySelector('.name').textContent = p.name; d.querySelector('.meta').textContent = 'updated ' + ago(p.updated) + ' - ' + (p.bytes / 1048576).toFixed(1) + ' MB';
+      d.querySelector('button').onclick = function () { play(p, d); }; box.appendChild(d);
+    });
+    var want = decodeURIComponent(location.hash.slice(1)); if (want) { var el = $('p-' + want); if (el) { el.scrollIntoView(); el.style.outline = '3px solid var(--acc)'; } }
+  }
+  async function play(p, card) {
+    var btn = card.querySelector('button'), err = card.querySelector('.err'), w = window.open('', '_blank'); btn.disabled = true; err.textContent = ''; err.style.color = 'var(--mut)';
+    try {
+      err.textContent = 'Downloading...'; var enc = await get(p.bundle); err.textContent = 'Decrypting...';
+      var files = C.unpack(await C.gunzip(await C.decrypt(key, enc)));
+      if ('serviceWorker' in navigator) { await navigator.serviceWorker.register('sw.js', { scope: './' }); await navigator.serviceWorker.ready; } else throw new Error('This browser has no service worker support.');
+      var cache = await caches.open('pf-run'), prefix = BASE + 'run/' + p.id + '/';
+      (await cache.keys()).forEach(function (rq) { if (rq.url.indexOf(prefix) === 0) cache.delete(rq); });
+      for (var i = 0; i < files.length; i++) { var f = files[i], ext = f.p.split('.').pop().toLowerCase(); await cache.put(prefix + f.p.split('/').map(encodeURIComponent).join('/'), new Response(f.bytes, { headers: { 'Content-Type': f.t || MIME[ext] || 'application/octet-stream' } })); }
+      err.textContent = ''; var url = prefix + 'index.html'; if (w) w.location = url; else location.href = url;
+    } catch (e) { if (w) w.close(); err.style.color = '#c0392b'; err.textContent = e.message; }
+    btn.disabled = false;
+  }
+  $('f').onsubmit = async function (ev) {
+    ev.preventDefault(); $('err').textContent = 'Unlocking...'; $('go').disabled = true;
+    try { var meta = await (await fetch('meta.json?t=' + Date.now())).json(), k = await C.deriveKey($('pw').value, meta); await unlock(k); if ($('rem').checked) localStorage.setItem('pf_key', await C.exportKey(k)); $('pw').value = ''; $('err').textContent = ''; }
+    catch (e) { $('err').textContent = e.message; }
+    $('go').disabled = false;
+  };
+  $('lock').onclick = function () { localStorage.removeItem('pf_key'); key = null; catalog = null; $('list').classList.add('hidden'); $('gate').classList.remove('hidden'); };
+  var saved = localStorage.getItem('pf_key'); if (saved) C.importKey(saved).then(unlock).catch(function () { localStorage.removeItem('pf_key'); });
+})();
+</script></body></html>
