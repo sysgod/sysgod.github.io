@@ -48,16 +48,23 @@ label.chk{display:flex;gap:8px;align-items:center;margin:10px 0;color:var(--mut)
     });
     var want = decodeURIComponent(location.hash.slice(1)); if (want) { var el = $('p-' + want); if (el) { el.scrollIntoView(); el.style.outline = '3px solid var(--acc)'; } }
   }
+  async function getP(u, cb) {   // download with progress (a 13 MB bundle takes a minute on a slow link: never leave a blank tab)
+    var r = await fetch(u + '?t=' + Date.now(), { cache: 'no-store' }); if (!r.ok) throw new Error(u + ' ' + r.status);
+    var total = +r.headers.get('content-length') || 0, rd = r.body && r.body.getReader(); if (!rd) return r.arrayBuffer();
+    var chunks = [], got = 0; for (;;) { var x = await rd.read(); if (x.done) break; chunks.push(x.value); got += x.value.length; cb(got, total); }
+    var out = new Uint8Array(got), o = 0; chunks.forEach(function (c) { out.set(c, o); o += c.length; }); return out.buffer;
+  }
   async function play(p, card) {
     var btn = card.querySelector('button'), err = card.querySelector('.err'), w = window.open('', '_blank'); btn.disabled = true; err.textContent = ''; err.style.color = 'var(--mut)';
+    var say = function (t) { err.textContent = t; try { if (w && !w.closed) { w.document.open(); w.document.write('<title>Loading ' + p.name + '</title><body style="margin:0;background:#231a14;color:#f6e7d0;font:20px system-ui;display:flex;align-items:center;justify-content:center;height:100vh;text-align:center"><div>' + p.name + '<br><small style="color:#b99f86">' + t + '</small></div></body>'); w.document.close(); } } catch (e) { } };
     try {
-      err.textContent = 'Downloading...'; var enc = await get(p.bundle); err.textContent = 'Decrypting...';
-      var files = C.unpack(await C.gunzip(await C.decrypt(key, enc)));
+      say('Downloading...'); var last = 0, enc = await getP(p.bundle, function (g, t) { var now = Date.now(); if (now - last > 400) { last = now; say('Downloading ' + (t ? Math.round(g / t * 100) + '%' : (g / 1048576).toFixed(1) + ' MB')); } }); say('Decrypting...');
+      var files = C.unpack(await C.gunzip(await C.decrypt(key, enc))); say('Unpacking ' + files.length + ' files...');
       if ('serviceWorker' in navigator) { await navigator.serviceWorker.register('sw.js', { scope: './' }); await navigator.serviceWorker.ready; } else throw new Error('This browser has no service worker support.');
       var cache = await caches.open('pf-run'), prefix = BASE + 'run/' + p.id + '/';
       (await cache.keys()).forEach(function (rq) { if (rq.url.indexOf(prefix) === 0) cache.delete(rq); });
       for (var i = 0; i < files.length; i++) { var f = files[i], ext = f.p.split('.').pop().toLowerCase(); await cache.put(prefix + f.p.split('/').map(encodeURIComponent).join('/'), new Response(f.bytes, { headers: { 'Content-Type': f.t || MIME[ext] || 'application/octet-stream' } })); }
-      err.textContent = ''; var url = prefix + 'index.html'; if (w) w.location = url; else location.href = url;
+      say('Starting...'); err.textContent = ''; var url = prefix + 'index.html'; if (w) w.location = url; else location.href = url;
     } catch (e) { if (w) w.close(); err.style.color = '#c0392b'; err.textContent = e.message; }
     btn.disabled = false;
   }
