@@ -1,0 +1,13 @@
+{
+ "v": 1,
+ "slug": "hypercell",
+ "title": "HyperCell",
+ "kind": "publisher",
+ "studio": "AxisGames",
+ "tagline": "Prototypes shared with HyperCell",
+ "accent": "#7c5cff",
+ "accent2": "#33d6c6",
+ "effect": "aurora",
+ "mode": "dark",
+ "logo": ""
+}
