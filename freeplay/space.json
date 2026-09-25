@@ -1,0 +1,13 @@
+{
+ "v": 1,
+ "slug": "freeplay",
+ "title": "FreePlay",
+ "kind": "publisher",
+ "studio": "AxisGames",
+ "tagline": "Prototypes shared with FreePlay",
+ "accent": "#ff6a3d",
+ "accent2": "#ffd166",
+ "effect": "bubbles",
+ "mode": "dark",
+ "logo": ""
+}
