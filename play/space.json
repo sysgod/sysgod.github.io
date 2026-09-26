@@ -1,0 +1,13 @@
+{
+ "v": 1,
+ "slug": "play",
+ "title": "Team",
+ "kind": "team",
+ "studio": "AxisGames",
+ "tagline": "Studio team playtest area",
+ "accent": "#f0954f",
+ "accent2": "#7cc6ff",
+ "effect": "aurora",
+ "mode": "dark",
+ "logo": ""
+}

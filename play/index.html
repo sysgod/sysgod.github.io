@@ -2,35 +2,104 @@
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>Team prototypes</title>
+<meta name="color-scheme" content="dark light">
+<title>Prototypes</title>
 <style>
-:root{--bg:#f6ecd8;--card:#fffaf0;--ink:#3b2416;--acc:#e9803a;--mut:#8a6f57}
-@media (prefers-color-scheme:dark){:root{--bg:#231a14;--card:#33261d;--ink:#f6e7d0;--acc:#f0954f;--mut:#b99f86}}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.4 system-ui,Segoe UI,Arial,sans-serif;min-height:100vh}
-main{max-width:720px;margin:0 auto;padding:24px 16px 64px}
-h1{font-size:26px;margin:8px 0 4px}p.sub{color:var(--mut);margin:0 0 20px}
-.card{background:var(--card);border:2px solid var(--ink);border-radius:18px;padding:16px;margin:12px 0;box-shadow:0 4px 0 rgba(0,0,0,.15)}
-input[type=password]{width:100%;font:inherit;padding:12px;border-radius:12px;border:2px solid var(--ink);background:var(--bg);color:var(--ink)}
-button{font:inherit;font-weight:700;padding:12px 18px;border-radius:14px;border:2px solid var(--ink);background:var(--acc);color:#fff;cursor:pointer;min-height:44px}
-button.ghost{background:transparent;color:var(--ink)}button:disabled{opacity:.5}
-.row{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}
-.name{font-weight:800;font-size:19px}.meta{color:var(--mut);font-size:14px}.err{color:#c0392b;min-height:1.4em;margin:8px 0 0}
-label.chk{display:flex;gap:8px;align-items:center;margin:10px 0;color:var(--mut);font-size:14px}.hidden{display:none}
-</style></head><body><main>
-<h1>Team prototypes</h1><p class="sub">Private playable builds. Files on this site are encrypted; your password unlocks them on this device only.</p>
-<section id="gate" class="card">
-  <form id="f"><input type="password" id="pw" placeholder="Team password" autocomplete="current-password" autofocus>
-  <label class="chk"><input type="checkbox" id="rem"> Remember on this device</label>
-  <button id="go" type="submit">Unlock</button><div class="err" id="err"></div></form>
+/* PrototypeForge SPACE dashboard (team / one per publisher). Everything on this site is ciphertext; the password unlocks the catalog on this device.
+   Theme = space.json (public, no secrets): accent colours + background effect. Calm animated background on a canvas, glass cards, phone-first. */
+:root{--acc:#f0954f;--acc2:#7cc6ff;--bg:#0f1119;--bg2:#1a1f2e;--ink:#f3efe8;--mut:#a7a3b3;--card:rgba(255,255,255,.07);--line:rgba(255,255,255,.14)}
+:root[data-mode=light]{--bg:#f4efe6;--bg2:#e6dccb;--ink:#2a2118;--mut:#7a6d60;--card:rgba(255,255,255,.55);--line:rgba(60,40,20,.12)}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%}
+body{background:var(--bg);color:var(--ink);font:16px/1.45 "Segoe UI",system-ui,-apple-system,Arial,sans-serif;overflow-x:hidden}
+#fx{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+main{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:28px 16px 80px}
+header{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-bottom:26px}
+.logo{width:64px;height:64px;border-radius:20px;display:grid;place-items:center;font-weight:900;font-size:26px;color:#fff;background:linear-gradient(135deg,var(--acc),var(--acc2));box-shadow:0 10px 30px rgba(0,0,0,.35);overflow:hidden}
+.logo img{width:100%;height:100%;object-fit:cover}
+h1{margin:0;font-size:30px;letter-spacing:.2px}h1 small{display:block;font-size:14px;font-weight:500;color:var(--mut);margin-top:2px}
+.spacer{flex:1}.pill:empty{display:none}.pill{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--card);backdrop-filter:blur(14px);border-radius:999px;padding:8px 14px;font-size:13px;color:var(--mut)}
+.pill b{color:var(--ink)}
+.glass{background:var(--card);border:1px solid var(--line);border-radius:22px;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:0 18px 50px rgba(0,0,0,.28)}
+#gate{max-width:440px;margin:60px auto 0;padding:28px}
+#gate h2{margin:0 0 6px;font-size:22px}#gate p{margin:0 0 18px;color:var(--mut);font-size:14px}
+input[type=password]{width:100%;font:inherit;padding:14px 16px;border-radius:14px;border:1px solid var(--line);background:rgba(0,0,0,.18);color:var(--ink);outline:none}
+:root[data-mode=light] input[type=password]{background:rgba(255,255,255,.7)}
+input[type=password]:focus{border-color:var(--acc);box-shadow:0 0 0 3px color-mix(in srgb,var(--acc) 30%,transparent)}
+button{font:inherit;font-weight:700;padding:12px 20px;border-radius:14px;border:0;background:linear-gradient(135deg,var(--acc),color-mix(in srgb,var(--acc) 70%,var(--acc2)));color:#fff;cursor:pointer;min-height:46px;box-shadow:0 8px 22px color-mix(in srgb,var(--acc) 35%,transparent);transition:transform .15s,box-shadow .15s}
+button:hover{transform:translateY(-1px);box-shadow:0 12px 28px color-mix(in srgb,var(--acc) 45%,transparent)}button:active{transform:translateY(1px)}
+button.ghost{background:transparent;color:var(--ink);border:1px solid var(--line);box-shadow:none}button:disabled{opacity:.5;transform:none}
+label.chk{display:flex;gap:10px;align-items:center;margin:14px 0 16px;color:var(--mut);font-size:14px}
+.err{color:#ff7b6b;min-height:1.4em;margin:8px 0 0;font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px}
+.card{padding:0;overflow:hidden;display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s;animation:in .5s both}
+.card:hover{transform:translateY(-4px);box-shadow:0 26px 60px rgba(0,0,0,.4)}
+@keyframes in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.cover{aspect-ratio:4/3;background:linear-gradient(160deg,color-mix(in srgb,var(--acc) 55%,#000 0%),color-mix(in srgb,var(--acc2) 55%,#000 0%));display:grid;place-items:center;position:relative;overflow:hidden}
+.cover img{width:100%;height:100%;object-fit:cover;object-position:center 18%;display:block}
+.cover .ini{font-size:64px;font-weight:900;color:rgba(255,255,255,.85);letter-spacing:-2px;text-shadow:0 6px 20px rgba(0,0,0,.35)}
+.cover .genre{position:absolute;left:12px;top:12px;font-size:12px;font-weight:700;padding:5px 10px;border-radius:999px;background:rgba(0,0,0,.45);color:#fff;backdrop-filter:blur(6px)}
+.cover .new{position:absolute;right:12px;top:12px;font-size:11px;font-weight:800;padding:5px 9px;border-radius:999px;background:var(--acc);color:#fff;letter-spacing:.5px}
+.body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px;flex:1}
+.name{font-weight:800;font-size:19px;line-height:1.2}.tag{color:var(--mut);font-size:14px;min-height:1.4em}.meta{color:var(--mut);font-size:12px;margin-top:auto;display:flex;gap:10px;flex-wrap:wrap}
+.card button{width:100%;margin-top:10px}.card .err{font-size:13px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:0 0 16px;color:var(--mut);font-size:14px}
+.hidden{display:none}
+footer{margin-top:40px;color:var(--mut);font-size:12px;text-align:center}
+@media (prefers-reduced-motion:reduce){.card{animation:none}}
+</style></head><body>
+<canvas id="fx"></canvas>
+<main>
+<header><div class="logo" id="logo">P</div><div><h1 id="title">Prototypes<small id="sub"></small></h1></div><div class="spacer"></div><span class="pill" id="pillCount"></span></header>
+<section id="gate" class="glass">
+  <h2>Welcome</h2><p id="gateText">Enter the access password to open the playable prototypes. They run right here in your browser; nothing is installed.</p>
+  <form id="f"><input type="password" id="pw" placeholder="Access password" autocomplete="current-password" autofocus>
+  <label class="chk"><input type="checkbox" id="rem" checked> Remember on this device</label>
+  <button id="go" type="submit">Open the prototypes</button><div class="err" id="err"></div></form>
 </section>
-<section id="list" class="hidden"><div class="row"><span class="meta" id="upd"></span><button class="ghost" id="lock">Lock</button></div><div id="cards"></div></section>
+<section id="list" class="hidden"><div class="top"><span id="upd"></span><button class="ghost" id="lock">Lock</button></div><div id="cards" class="grid"></div></section>
+<footer id="foot"></footer>
 </main>
 <script src="pfcrypto.js"></script>
 <script>
 (function () {
-  var C = window.PFCrypto, $ = function (id) { return document.getElementById(id); }, BASE = new URL('./', location.href).href, key = null, catalog = null;
-  var MIME = { html: 'text/html', js: 'text/javascript', mjs: 'text/javascript', css: 'text/css', json: 'application/json', png: 'image/png', jpg: 'image/jpeg', jpeg: 'image/jpeg', gif: 'image/gif', webp: 'image/webp', svg: 'image/svg+xml', mp3: 'audio/mpeg', ogg: 'audio/ogg', wav: 'audio/wav', m4a: 'audio/mp4', woff: 'font/woff', woff2: 'font/woff2', ttf: 'font/ttf', wasm: 'application/wasm', txt: 'text/plain', ico: 'image/x-icon' };
+  var C = window.PFCrypto, $ = function (id) { return document.getElementById(id); }, BASE = new URL('./', location.href).href, key = null, catalog = null, SP = { title: 'Prototypes', studio: 'AxisGames', accent: '#f0954f', accent2: '#7cc6ff', effect: 'aurora', mode: 'dark', tagline: '', logo: '' };
+  var MIME = { html: 'text/html', js: 'text/javascript', mjs: 'text/javascript', css: 'text/css', json: 'application/json', png: 'image/png', jpg: 'image/jpeg', jpeg: 'image/jpeg', gif: 'image/gif', webp: 'image/webp', svg: 'image/svg+xml', mp3: 'audio/mpeg', ogg: 'audio/ogg', wav: 'audio/wav', mp4: 'video/mp4', webm: 'video/webm', woff: 'font/woff', woff2: 'font/woff2', ttf: 'font/ttf', wasm: 'application/wasm', txt: 'text/plain' };
   function get(u) { return fetch(u + (u.indexOf('?') < 0 ? '?' : '&') + 't=' + Date.now(), { cache: 'no-store' }).then(function (r) { if (!r.ok) throw new Error(u + ' ' + r.status); return r.arrayBuffer(); }); }
+  // ---- theme from space.json (public)
+  function applySpace(s) {
+    SP = Object.assign(SP, s || {}); var r = document.documentElement.style; r.setProperty('--acc', SP.accent); r.setProperty('--acc2', SP.accent2); document.documentElement.dataset.mode = SP.mode === 'light' ? 'light' : 'dark';
+    document.title = SP.title + ' - prototypes by ' + SP.studio; $('title').firstChild.textContent = SP.title; $('sub').textContent = SP.tagline || ('Playable prototypes by ' + SP.studio);
+    if (SP.logo) $('logo').innerHTML = '<img alt="" src="' + SP.logo + '">'; else $('logo').textContent = (SP.title || 'P').trim().charAt(0).toUpperCase();
+    $('foot').textContent = SP.studio + ' - private preview for ' + SP.title + '. Please do not redistribute.'; fx(SP.effect);
+  }
+  fetch('space.json?t=' + Date.now(), { cache: 'no-store' }).then(function (r) { return r.json(); }).then(applySpace).catch(function () { applySpace({}); });
+  // ---- calm background: soft drifting blobs (aurora), rising bubbles, or a slow starfield; pauses when the tab is hidden, honours reduced motion
+  function fx(kind) {
+    var cv = $('fx'), c = cv.getContext('2d'), W, H, t0 = performance.now(), items = [], dpr = Math.min(2, window.devicePixelRatio || 1), still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function size() { W = cv.width = innerWidth * dpr; H = cv.height = innerHeight * dpr; } size(); addEventListener('resize', size);
+    function hex(h, a) { var n = parseInt(h.slice(1), 16); return 'rgba(' + (n >> 16 & 255) + ',' + (n >> 8 & 255) + ',' + (n & 255) + ',' + a + ')'; }
+    var A = SP.accent, B = SP.accent2, light = SP.mode === 'light';
+    if (kind === 'bubbles') for (var i = 0; i < 40; i++) items.push({ x: Math.random(), y: Math.random(), r: 6 + Math.random() * 40, v: 0.02 + Math.random() * 0.05, w: Math.random() * 6.28 });
+    if (kind === 'stars') for (var j = 0; j < 160; j++) items.push({ x: Math.random(), y: Math.random(), r: 0.6 + Math.random() * 1.8, p: Math.random() * 6.28, v: 0.004 + Math.random() * 0.01 });
+    function frame(now) {
+      var t = (now - t0) / 1000; c.clearRect(0, 0, W, H);
+      if (kind === 'stars') {
+        var g0 = c.createLinearGradient(0, 0, 0, H); g0.addColorStop(0, hex(A, .10)); g0.addColorStop(1, hex(B, .06)); c.fillStyle = g0; c.fillRect(0, 0, W, H);
+        items.forEach(function (s) { var a = 0.35 + 0.65 * (0.5 + 0.5 * Math.sin(t * 1.3 + s.p)); c.beginPath(); c.arc(((s.x + t * s.v * 0.05) % 1) * W, s.y * H, s.r * dpr, 0, 7); c.fillStyle = light ? hex(A, a * .7) : 'rgba(255,255,255,' + a * .8 + ')'; c.fill(); });
+      } else if (kind === 'bubbles') {
+        var g1 = c.createLinearGradient(0, 0, W, H); g1.addColorStop(0, hex(B, .14)); g1.addColorStop(1, hex(A, .12)); c.fillStyle = g1; c.fillRect(0, 0, W, H);
+        items.forEach(function (b) { var y = (1 - ((b.y + t * b.v) % 1)) * H, x = (b.x + Math.sin(t * 0.6 + b.w) * 0.015) * W; c.beginPath(); c.arc(x, y, b.r * dpr, 0, 7); c.fillStyle = hex(B, .10); c.fill(); c.lineWidth = dpr; c.strokeStyle = hex(B, .22); c.stroke(); });
+      } else {   // aurora: four large soft blobs drifting on slow sine paths
+        [[A, 0.0, .28], [B, 2.1, .24], [A, 4.2, .18], [B, 1.0, .16]].forEach(function (o, i) {
+          var x = (0.5 + 0.42 * Math.sin(t * 0.07 + o[1] + i)) * W, y = (0.5 + 0.38 * Math.cos(t * 0.05 + o[1] * 1.7)) * H, r = (0.32 + 0.08 * Math.sin(t * 0.09 + i)) * Math.max(W, H);
+          var g = c.createRadialGradient(x, y, 0, x, y, r); g.addColorStop(0, hex(o[0], o[2] * (light ? .8 : 1))); g.addColorStop(1, hex(o[0], 0)); c.fillStyle = g; c.fillRect(0, 0, W, H);
+        });
+      }
+      if (!still && !document.hidden) requestAnimationFrame(frame);
+    }
+    frame(performance.now()); document.addEventListener('visibilitychange', function () { if (!document.hidden && !still) requestAnimationFrame(frame); });
+  }
+  // ---- catalog
   async function unlock(k) {
     var buf; try { buf = await get('catalog.bin'); } catch (e) { throw new Error('Nothing published yet.'); }
     try { catalog = JSON.parse(new TextDecoder().decode(await C.decrypt(k, buf))); } catch (e) { throw new Error('Wrong password.'); }
@@ -38,15 +107,21 @@ label.chk{display:flex;gap:8px;align-items:center;margin:10px 0;color:var(--mut)
   }
   function ago(iso) { var s = (Date.now() - new Date(iso)) / 1000; return s < 90 ? 'just now' : s < 5400 ? Math.round(s / 60) + ' min ago' : s < 129600 ? Math.round(s / 3600) + ' h ago' : Math.round(s / 86400) + ' days ago'; }
   function show() {
-    $('gate').classList.add('hidden'); $('list').classList.remove('hidden'); $('upd').textContent = catalog.prototypes.length + ' prototype' + (catalog.prototypes.length === 1 ? '' : 's') + ' - updated ' + ago(catalog.updated);
+    $('gate').classList.add('hidden'); $('list').classList.remove('hidden'); var n = catalog.prototypes.length;
+    $('upd').textContent = n + ' prototype' + (n === 1 ? '' : 's') + (catalog.updated ? ' - last update ' + ago(catalog.updated) : ''); $('pillCount').innerHTML = '<b>' + n + '</b> playable';
     var box = $('cards'); box.innerHTML = '';
-    catalog.prototypes.slice().sort(function (a, b) { return b.updated.localeCompare(a.updated); }).forEach(function (p) {
-      var d = document.createElement('div'); d.className = 'card'; d.id = 'p-' + p.name;
-      d.innerHTML = '<div class="row"><div><div class="name"></div><div class="meta"></div></div><button>Play</button></div><div class="err"></div>';
-      d.querySelector('.name').textContent = p.name; d.querySelector('.meta').textContent = 'updated ' + ago(p.updated) + ' - ' + (p.bytes / 1048576).toFixed(1) + ' MB';
+    catalog.prototypes.slice().sort(function (a, b) { return b.updated.localeCompare(a.updated); }).forEach(function (p, i) {
+      var d = document.createElement('div'); d.className = 'card glass'; d.id = 'p-' + p.name; d.style.animationDelay = (i * 60) + 'ms';
+      var fresh = (Date.now() - new Date(p.updated)) < 3 * 86400000;
+      d.innerHTML = '<div class="cover">' + (p.cover ? '<img alt="">' : '<span class="ini"></span>') + (p.genre ? '<span class="genre"></span>' : '') + (fresh ? '<span class="new">NEW</span>' : '') + '</div>' +
+        '<div class="body"><div class="name"></div><div class="tag"></div><div class="meta"><span class="u"></span><span class="s"></span></div><button>Play</button><div class="err"></div></div>';
+      if (p.cover) d.querySelector('img').src = p.cover; else d.querySelector('.ini').textContent = (p.title || p.name).charAt(0).toUpperCase();
+      if (p.genre) d.querySelector('.genre').textContent = p.genre;
+      d.querySelector('.name').textContent = p.title || p.name; d.querySelector('.tag').textContent = p.tagline || '';
+      d.querySelector('.u').textContent = 'updated ' + ago(p.updated); d.querySelector('.s').textContent = (p.bytes / 1048576).toFixed(1) + ' MB';
       d.querySelector('button').onclick = function () { play(p, d); }; box.appendChild(d);
     });
-    var want = decodeURIComponent(location.hash.slice(1)); if (want) { var el = $('p-' + want); if (el) { el.scrollIntoView(); el.style.outline = '3px solid var(--acc)'; } }
+    var want = decodeURIComponent(location.hash.slice(1)); if (want) { var el = $('p-' + want); if (el) { el.scrollIntoView({ block: 'center' }); el.style.outline = '3px solid var(--acc)'; } }
   }
   async function getP(u, cb) {   // download with progress (a 13 MB bundle takes a minute on a slow link: never leave a blank tab)
     var r = await fetch(u + '?t=' + Date.now(), { cache: 'no-store' }); if (!r.ok) throw new Error(u + ' ' + r.status);
@@ -56,25 +131,25 @@ label.chk{display:flex;gap:8px;align-items:center;margin:10px 0;color:var(--mut)
   }
   async function play(p, card) {
     var btn = card.querySelector('button'), err = card.querySelector('.err'), w = window.open('', '_blank'); btn.disabled = true; err.textContent = ''; err.style.color = 'var(--mut)';
-    var say = function (t) { err.textContent = t; try { if (w && !w.closed) { w.document.open(); w.document.write('<title>Loading ' + p.name + '</title><body style="margin:0;background:#231a14;color:#f6e7d0;font:20px system-ui;display:flex;align-items:center;justify-content:center;height:100vh;text-align:center"><div>' + p.name + '<br><small style="color:#b99f86">' + t + '</small></div></body>'); w.document.close(); } } catch (e) { } };
+    var say = function (t) { err.textContent = t; try { if (w && !w.closed) { w.document.open(); w.document.write('<title>Loading ' + (p.title || p.name) + '</title><body style="margin:0;background:#0f1119;color:#f3efe8;font:18px system-ui;display:grid;place-items:center;height:100vh">' + t + '</body>'); w.document.close(); } } catch (e) { } };
     try {
-      say('Downloading...'); var last = 0, enc = await getP(p.bundle, function (g, t) { var now = Date.now(); if (now - last > 400) { last = now; say('Downloading ' + (t ? Math.round(g / t * 100) + '%' : (g / 1048576).toFixed(1) + ' MB')); } }); say('Decrypting...');
-      var files = C.unpack(await C.gunzip(await C.decrypt(key, enc))); say('Unpacking ' + files.length + ' files...');
-      if ('serviceWorker' in navigator) { await navigator.serviceWorker.register('sw.js', { scope: './' }); await navigator.serviceWorker.ready; } else throw new Error('This browser has no service worker support.');
+      say('Downloading...'); var last = 0, enc = await getP(p.bundle, function (g, t) { var now = Date.now(); if (now - last > 400) { last = now; say('Downloading ' + (t ? Math.round(g / t * 100) + '%' : Math.round(g / 1048576) + ' MB') + '...'); } });
+      say('Unlocking...'); var files = C.unpack(await C.gunzip(await C.decrypt(key, enc))); say('Unpacking ' + files.length + ' files...');
+      if ('serviceWorker' in navigator) { await navigator.serviceWorker.register('sw.js', { scope: './' }); await navigator.serviceWorker.ready; } else throw new Error('This browser has no service worker support (private mode?). Try Chrome, Safari or Firefox in a normal window.');
       var cache = await caches.open('pf-run'), prefix = BASE + 'run/' + p.id + '/';
       (await cache.keys()).forEach(function (rq) { if (rq.url.indexOf(prefix) === 0) cache.delete(rq); });
       for (var i = 0; i < files.length; i++) { var f = files[i], ext = f.p.split('.').pop().toLowerCase(); await cache.put(prefix + f.p.split('/').map(encodeURIComponent).join('/'), new Response(f.bytes, { headers: { 'Content-Type': f.t || MIME[ext] || 'application/octet-stream' } })); }
       say('Starting...'); err.textContent = ''; var url = prefix + 'index.html'; if (w) w.location = url; else location.href = url;
-    } catch (e) { if (w) w.close(); err.style.color = '#c0392b'; err.textContent = e.message; }
+    } catch (e) { if (w) w.close(); err.style.color = '#ff7b6b'; err.textContent = e.message; }
     btn.disabled = false;
   }
   $('f').onsubmit = async function (ev) {
     ev.preventDefault(); $('err').textContent = 'Unlocking...'; $('go').disabled = true;
-    try { var meta = await (await fetch('meta.json?t=' + Date.now())).json(), k = await C.deriveKey($('pw').value, meta); await unlock(k); if ($('rem').checked) localStorage.setItem('pf_key', await C.exportKey(k)); $('pw').value = ''; $('err').textContent = ''; }
+    try { var meta = await (await fetch('meta.json?t=' + Date.now())).json(), k = await C.deriveKey($('pw').value, meta); await unlock(k); if ($('rem').checked) localStorage.setItem('pf_key', await C.exportKey(k)); $('err').textContent = ''; }
     catch (e) { $('err').textContent = e.message; }
     $('go').disabled = false;
   };
-  $('lock').onclick = function () { localStorage.removeItem('pf_key'); key = null; catalog = null; $('list').classList.add('hidden'); $('gate').classList.remove('hidden'); };
+  $('lock').onclick = function () { localStorage.removeItem('pf_key'); key = null; catalog = null; $('list').classList.add('hidden'); $('gate').classList.remove('hidden'); $('pillCount').textContent = ''; };
   var saved = localStorage.getItem('pf_key'); if (saved) C.importKey(saved).then(unlock).catch(function () { localStorage.removeItem('pf_key'); });
 })();
 </script></body></html>
