@@ -136,8 +136,10 @@ footer{margin-top:40px;color:var(--mut);font-size:12px;text-align:center}
       say('Downloading...'); var last = 0, enc = await getP(p.bundle, function (g, t) { var now = Date.now(); if (now - last > 400) { last = now; say('Downloading ' + (t ? Math.round(g / t * 100) + '%' : Math.round(g / 1048576) + ' MB') + '...'); } });
       say('Unlocking...'); var files = C.unpack(await C.gunzip(await C.decrypt(key, enc))); say('Unpacking ' + files.length + ' files...');
       if ('serviceWorker' in navigator) { await navigator.serviceWorker.register('sw.js', { scope: './' }); await navigator.serviceWorker.ready; } else throw new Error('This browser has no service worker support (private mode?). Try Chrome, Safari or Firefox in a normal window.');
-      var cache = await caches.open('pf-run'), prefix = BASE + 'run/' + p.id + '/';
-      (await cache.keys()).forEach(function (rq) { if (rq.url.indexOf(prefix) === 0) cache.delete(rq); });
+      // Every publish gets its OWN url prefix (…/run/<id>/<publish stamp>/): art is requested by unversioned urls (assets/art/enemies_ch1.png), so reusing one prefix let an open tab / the
+      // browser's image cache keep serving the previous publish's art after "Publish to team" (WordDefense 2026-10-02: units, towers, levels stayed old). Old publishes are wiped, and the wipe is AWAITED.
+      var cache = await caches.open('pf-run'), prefix = BASE + 'run/' + p.id + '/' + Date.parse(p.updated).toString(36) + '/', idPrefix = BASE + 'run/' + p.id + '/';
+      await Promise.all((await cache.keys()).filter(function (rq) { return rq.url.indexOf(idPrefix) === 0; }).map(function (rq) { return cache.delete(rq); }));
       for (var i = 0; i < files.length; i++) { var f = files[i], ext = f.p.split('.').pop().toLowerCase(); await cache.put(prefix + f.p.split('/').map(encodeURIComponent).join('/'), new Response(f.bytes, { headers: { 'Content-Type': f.t || MIME[ext] || 'application/octet-stream' } })); }
       say('Starting...'); err.textContent = ''; var url = prefix + 'index.html'; if (w) w.location = url; else location.href = url;
     } catch (e) { if (w) w.close(); err.style.color = '#ff7b6b'; err.textContent = e.message; }

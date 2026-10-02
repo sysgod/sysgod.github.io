@@ -7,5 +7,5 @@ self.addEventListener('fetch', function (e) {
   var u = new URL(e.request.url), key = u.origin + u.pathname;
   if (key.indexOf(RUN) !== 0) return;
   if (key.charAt(key.length - 1) === '/') key += 'index.html';
-  e.respondWith(caches.open('pf-run').then(function (c) { return c.match(key); }).then(function (r) { return r || new Response('Not unlocked on this device: open the team page and press Play.', { status: 404, headers: { 'Content-Type': 'text/plain' } }); }));
+  e.respondWith(caches.open('pf-run').then(function (c) { return c.match(key); }).then(function (r) { if (!r) return r; var h = new Headers(r.headers); h.set('Cache-Control', 'no-store'); return new Response(r.body, { status: r.status, headers: h }); }).then(function (r) { return r || new Response('Not unlocked on this device: open the team page and press Play.', { status: 404, headers: { 'Content-Type': 'text/plain' } }); }));
 });
