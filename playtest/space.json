@@ -1,0 +1,13 @@
+{
+ "v": 1,
+ "slug": "playtest",
+ "title": "PlayTest",
+ "kind": "publisher",
+ "studio": "AxisGames",
+ "tagline": "playtest",
+ "accent": "#12f3ba",
+ "accent2": "#198f83",
+ "effect": "stars",
+ "mode": "dark",
+ "logo": ""
+}
