@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<title>Таро Трудоустройства · The Job Tarot</title>
+<meta name="description" content="Древнее гадание на оффер: вытяни три карты и узнай, когда тебя наконец возьмут на работу. An ancient tarot reading of your next job offer.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Таро Трудоустройства · The Job Tarot">
+<meta property="og:description" content="Вытяни три карты судьбы и узнай свой прогноз трудоустройства. Точность 0 %, юмор 100 %. Draw three cards of fate and get your job forecast.">
+<meta property="og:url" content="https://sysgod.github.io/jobtarot/">
+<meta property="og:image" content="https://sysgod.github.io/jobtarot/cover.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:image" content="https://sysgod.github.io/jobtarot/cover.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="art/icon.png">
+<link rel="stylesheet" href="fonts/fonts.css">
+<link rel="stylesheet" href="style.css">
+<script type="importmap">{ "imports": { "three": "./vendor/three.module.js", "three/addons/": "./vendor/jsm/" } }</script>
+</head>
+<body>
+<canvas id="gl"></canvas>
+<div id="labels"></div>
+<div id="hint"></div>
+<div id="reading"></div>
+<div id="intro"></div>
+<div id="verdict"></div>
+<div id="zoom"></div>
+<div id="top"><button id="snd" title="Sound">♪</button><button id="lang">EN</button></div>
+<div id="boot"><div class="deck"><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="bar"><i id="bootfill"></i></div></div>
+<script src="js/cards.js"></script>
+<script src="js/oracle.js"></script>
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
