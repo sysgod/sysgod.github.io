@@ -238,7 +238,9 @@ async function pick(c) {
   /* placing a card is quiet (a soft tap): the ONE big effect of a card is its reveal (owner 11-13: "по два раза одну и ту же выкладывать") */
   S.log.push('place'); sfx.play('tick', 0.6);
   addLabel(k);
-  if (S.spread.length === 3) { S.phase = 'reveal'; await wait(0.4); await returnHand(); await wait(0.35); await revealAll(); }
+  /* only the THIRD pick starts the reveal: every pick awaits its own flight, so with quick picks all three continuations saw length 3 and the
+     reveal ran 2-3 times (owner 11-13: "действия все двоятся в операциях с картами"); acceptance A12 replays this */
+  if (k === 2) { S.phase = 'reveal'; await wait(0.4); await returnHand(); await wait(0.35); await revealAll(); }
 }
 async function returnHand() {
   const rest = handList.slice(); handList = [];
