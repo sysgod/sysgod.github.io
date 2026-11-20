@@ -1,0 +1,13 @@
+{
+ "v": 1,
+ "slug": "mygames",
+ "title": "mygames",
+ "kind": "publisher",
+ "studio": "AxisGames",
+ "tagline": "mygames",
+ "accent": "#4f2dd7",
+ "accent2": "#23a99c",
+ "effect": "stars",
+ "mode": "dark",
+ "logo": ""
+}
