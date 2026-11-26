@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AxisGames</title>
+<style>body{margin:0;min-height:100vh;display:grid;place-items:center;background:#0f1119;color:#f3efe8;font:17px/1.5 system-ui,-apple-system,sans-serif;text-align:center;padding:16px;box-sizing:border-box}a{color:#f0954f}</style>
+</head><body>
+<div id="msg"><p>Opening AxisGames...</p></div>
+<script>
+// Site-wide 404 (PrototypeForge teamsite/404.html, copied to the Pages repo root by publisher.js).
+// A game tab runs at /<space>/run/<id>/<stamp>/... : those files live only in the browser (service worker + Cache), never on GitHub.
+// iOS Safari reloading a restored tab, a shared / copied game link or another browser asks GitHub for them -> send the visitor back to the
+// space page, which unlocks (saved key or password) and relaunches that game (#run=<id>). Gate: teamsite/run_404_selftest.js.
+(function () {
+  var m = /^\/([^\/]+)\/run\/([0-9a-z]+)(\/|$)/i.exec(location.pathname);
+  if (m) { location.replace(location.origin + '/' + m[1] + '/#run=' + m[2]); return; }
+  var el = document.getElementById('msg');
+  if (el && el.innerHTML !== undefined) el.innerHTML = '<p>This page does not exist.</p><p><a href="/">Go to AxisGames</a></p>';
+})();
+</script>
+</body></html>

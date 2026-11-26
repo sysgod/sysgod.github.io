@@ -275,7 +275,10 @@ footer{margin-top:40px;color:var(--mut);font-size:12px;text-align:center}
     $('pillCount').innerHTML = '<b>' + n + '</b> playable';
     $('cards').innerHTML = ''; items = catalog.prototypes.slice().sort(function (a, b) { return b.updated.localeCompare(a.updated); }).map(build);
     chips(); apply();
-    var want = decodeURIComponent(location.hash.slice(1)); if (want) { var it = items.filter(function (x) { return x.p.name === want; })[0]; if (it) { if (it.el.hidden) { UI.q = $('q').value = ''; UI.genre = ''; apply(); } it.el.scrollIntoView({ block: 'center' }); it.el.classList.add('flash'); it.el.focus({ preventScroll: true }); } }
+    var want = decodeURIComponent(location.hash.slice(1));
+    // #run=<id>: the visitor came back from a game url GitHub / the service worker could not serve (404.html, sw.js): relaunch that game in this tab
+    if (want.indexOf('run=') === 0) { var rid = want.slice(4), rit = items.filter(function (x) { return x.p.id === rid; })[0]; history.replaceState(null, '', location.pathname + location.search); if (rit) { play(rit, true); return; } toast('That game is no longer published here.'); return; }
+    if (want) { var it = items.filter(function (x) { return x.p.name === want; })[0]; if (it) { if (it.el.hidden) { UI.q = $('q').value = ''; UI.genre = ''; apply(); } it.el.scrollIntoView({ block: 'center' }); it.el.classList.add('flash'); it.el.focus({ preventScroll: true }); } }
   }
   // ---- controls
   var qt = 0; $('q').addEventListener('input', function () { clearTimeout(qt); qt = setTimeout(function () { UI.q = $('q').value; apply(); window.scrollTo({ top: Math.min(scrollY, $('list').offsetTop - 10) }); }, 60); });
@@ -319,8 +322,8 @@ footer{margin-top:40px;color:var(--mut);font-size:12px;text-align:center}
     var chunks = [], got = 0; for (;;) { var x = await rd.read(); if (x.done) break; chunks.push(x.value); got += x.value.length; cb(got, total); }
     var out = new Uint8Array(got), o = 0; chunks.forEach(function (c) { out.set(c, o); o += c.length; }); return out.buffer;
   }
-  async function play(it) {
-    if (it.busy) return; var p = it.p, el = it.el, prog = el.querySelector('.prog'), w = window.open('', '_blank'); it.busy = true; el.classList.add('busy'); el.setAttribute('aria-busy', 'true');
+  async function play(it, sameTab) {
+    if (it.busy) return; var p = it.p, el = it.el, prog = el.querySelector('.prog'), w = sameTab ? null : window.open('', '_blank'); it.busy = true; el.classList.add('busy'); el.setAttribute('aria-busy', 'true');
     var say = function (t, short) { prog.textContent = short || ''; try { if (w && !w.closed) { w.document.open(); w.document.write('<title>Loading ' + (p.title || p.name) + '</title><body style="margin:0;background:#0f1119;color:#f3efe8;font:18px system-ui;display:grid;place-items:center;height:100vh">' + t + '</body>'); w.document.close(); } } catch (e) { } };
     try {
       say('Downloading...', '...'); var last = 0, enc = await getP(p.bundle, function (g, t) { var now = Date.now(); if (now - last > 400) { last = now; var pc = t ? Math.round(g / t * 100) + '%' : Math.round(g / 1048576) + ' MB'; say('Downloading ' + pc + '...', pc); } });
