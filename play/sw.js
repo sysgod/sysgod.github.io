@@ -10,9 +10,5 @@ self.addEventListener('fetch', function (e) {
   var u = new URL(e.request.url), key = u.origin + canon(u.pathname);
   if (key.indexOf(RUN) !== 0) return;
   if (key.charAt(key.length - 1) === '/') key += 'index.html';
-  e.respondWith(caches.open('pf-run').then(function (c) { return c.match(key); }).then(function (r) { if (!r) return r; var h = new Headers(r.headers); h.set('Cache-Control', 'no-store'); return new Response(r.body, { status: r.status, headers: h }); }).then(function (r) {
-    // A navigation that misses (iOS evicted the cache, a shared link, a restored tab) goes back to the space page, which relaunches the game (#run=<id>);
-    // a plain-text 404 here left the visitor stuck (2026-11-26). Gate: run_404_selftest.js.
-    if (!r && e.request.mode === 'navigate') { var id = key.slice(RUN.length).split('/')[0]; return Response.redirect(BASE + '#run=' + id, 302); }
-    return r || new Response('Not unlocked on this device: open the team page and press Play.', { status: 404, headers: { 'Content-Type': 'text/plain' } }); }));
+  e.respondWith(caches.open('pf-run').then(function (c) { return c.match(key); }).then(function (r) { if (!r) return r; var h = new Headers(r.headers); h.set('Cache-Control', 'no-store'); return new Response(r.body, { status: r.status, headers: h }); }).then(function (r) { return r || new Response('Not unlocked on this device: open the team page and press Play.', { status: 404, headers: { 'Content-Type': 'text/plain' } }); }));
 });

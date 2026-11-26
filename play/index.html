@@ -275,16 +275,7 @@ footer{margin-top:40px;color:var(--mut);font-size:12px;text-align:center}
     $('pillCount').innerHTML = '<b>' + n + '</b> playable';
     $('cards').innerHTML = ''; items = catalog.prototypes.slice().sort(function (a, b) { return b.updated.localeCompare(a.updated); }).map(build);
     chips(); apply();
-    var want = decodeURIComponent(location.hash.slice(1));
-    // #run=<id>: the visitor came back from a game url GitHub / the service worker could not serve (404.html, sw.js): relaunch that game in this tab
-    // RL-01 (owner 2026-11-26, DigDrop on iPhone "все время перезапускается"): relaunch by itself at most once per 2 minutes per game. iOS can
-    // evict the 90 MB cache or kill the game tab again right after a relaunch; a second automatic relaunch would loop (download -> crash -> back
-    // here -> download). The second time the card is shown with a toast and the visitor presses Play. Gate: run_404_selftest.js (3).
-    if (want.indexOf('run=') === 0) { var rid = want.slice(4), rit = items.filter(function (x) { return x.p.id === rid; })[0]; history.replaceState(null, '', location.pathname + location.search);
-      if (!rit) { toast('That game is no longer published here.'); return; }
-      var rk = 'pf_relaunch_' + rid, rlast = +(lsGet(rk) || 0); if (Date.now() - rlast > 120000) { lsSet(rk, String(Date.now())); play(rit, true); return; }
-      rit.el.scrollIntoView({ block: 'center' }); rit.el.classList.add('flash'); toast((rit.p.title || rit.p.name) + ' stopped. Press Play to start it again.'); return; }
-    if (want) { var it = items.filter(function (x) { return x.p.name === want; })[0]; if (it) { if (it.el.hidden) { UI.q = $('q').value = ''; UI.genre = ''; apply(); } it.el.scrollIntoView({ block: 'center' }); it.el.classList.add('flash'); it.el.focus({ preventScroll: true }); } }
+    var want = decodeURIComponent(location.hash.slice(1)); if (want) { var it = items.filter(function (x) { return x.p.name === want; })[0]; if (it) { if (it.el.hidden) { UI.q = $('q').value = ''; UI.genre = ''; apply(); } it.el.scrollIntoView({ block: 'center' }); it.el.classList.add('flash'); it.el.focus({ preventScroll: true }); } }
   }
   // ---- controls
   var qt = 0; $('q').addEventListener('input', function () { clearTimeout(qt); qt = setTimeout(function () { UI.q = $('q').value; apply(); window.scrollTo({ top: Math.min(scrollY, $('list').offsetTop - 10) }); }, 60); });
@@ -328,8 +319,8 @@ footer{margin-top:40px;color:var(--mut);font-size:12px;text-align:center}
     var chunks = [], got = 0; for (;;) { var x = await rd.read(); if (x.done) break; chunks.push(x.value); got += x.value.length; cb(got, total); }
     var out = new Uint8Array(got), o = 0; chunks.forEach(function (c) { out.set(c, o); o += c.length; }); return out.buffer;
   }
-  async function play(it, sameTab) {
-    if (it.busy) return; var p = it.p, el = it.el, prog = el.querySelector('.prog'), w = sameTab ? null : window.open('', '_blank'); it.busy = true; el.classList.add('busy'); el.setAttribute('aria-busy', 'true');
+  async function play(it) {
+    if (it.busy) return; var p = it.p, el = it.el, prog = el.querySelector('.prog'), w = window.open('', '_blank'); it.busy = true; el.classList.add('busy'); el.setAttribute('aria-busy', 'true');
     var say = function (t, short) { prog.textContent = short || ''; try { if (w && !w.closed) { w.document.open(); w.document.write('<title>Loading ' + (p.title || p.name) + '</title><body style="margin:0;background:#0f1119;color:#f3efe8;font:18px system-ui;display:grid;place-items:center;height:100vh">' + t + '</body>'); w.document.close(); } } catch (e) { } };
     try {
       say('Downloading...', '...'); var last = 0, enc = await getP(p.bundle, function (g, t) { var now = Date.now(); if (now - last > 400) { last = now; var pc = t ? Math.round(g / t * 100) + '%' : Math.round(g / 1048576) + ' MB'; say('Downloading ' + pc + '...', pc); } });
